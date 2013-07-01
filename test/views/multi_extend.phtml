@@ -1,0 +1,7 @@
+<?php $this->extend('first_extend')?>
+
+<?php $this->block('header', function($view) { ?>
+<div class="header_2"><?= $view->get('header')?></div>
+<?php }); ?>
+
+<?php $this->block('title', function($view) { ?>New Title<?php }); ?>
