@@ -139,6 +139,16 @@ class View implements ViewInterface
         return array_key_exists($variable, $this->variables);
     }
 
+    public function __call($name, $args)
+    {
+        if ($this->__isset($name) && $this->$name instanceof \Closure) {
+
+            $function = new \ReflectionFunction($this->$name);
+
+            return $function->invokeArgs($args);
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -152,7 +162,7 @@ class View implements ViewInterface
     }
 
     /**
-     * Sets and/or gets a block as callback.
+     * Sets and/or renders a block.
      *
      * When $callback arguments is set then the callback is stored with 
      * the given $name
@@ -161,7 +171,7 @@ class View implements ViewInterface
      * given name.
      * 
      * @param string $name 
-     * @param \Closure $callback 
+     * @param Closure $callback 
      *
      * @access public
      * @return void|mixed
@@ -183,12 +193,12 @@ class View implements ViewInterface
 
 
     /**
-     * getBlock 
+     * Return a block as callback. 
      * 
      * @param string $name
      *
      * @access public
-     * @return \Closure
+     * @return null|Closure
      */
     public function getBlock($name)
     {
