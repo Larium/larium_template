@@ -33,7 +33,7 @@ class View implements ViewInterface
     /**
      * An array with \Closure instances.
      * The key is the name of \Closure.
-     * 
+     *
      * @var array
      */
     private $blocks = array();
@@ -67,7 +67,7 @@ class View implements ViewInterface
      */
     public function assign($variable, $value)
     {
-        if (is_string($value)) {
+        if (is_string($value) && $variable !== '_content_') {
             $value = htmlentities($value, ENT_QUOTES, 'UTF-8', false);
         }
 
@@ -130,7 +130,7 @@ class View implements ViewInterface
         if (!$this->__isset($variable)) {
             throw new \InvalidArgumentException(sprintf("Undefined variable '%s'", $variable));
         }
-        
+
         return $this->variables[$variable];
     }
 
@@ -164,18 +164,18 @@ class View implements ViewInterface
     /**
      * Sets and/or renders a block.
      *
-     * When $callback arguments is set then the callback is stored with 
+     * When $callback arguments is set then the callback is stored with
      * the given $name
      *
-     * When $callback ommited then executes the callback stored with the 
+     * When $callback ommited then executes the callback stored with the
      * given name.
-     * 
-     * @param string $name 
-     * @param Closure $callback 
+     *
+     * @param string $name
+     * @param Closure $callback
      *
      * @access public
      * @return void|mixed
-     */   
+     */
     public function block($name, \Closure $callback=null)
     {
         if (null === $callback) {
@@ -193,8 +193,8 @@ class View implements ViewInterface
 
 
     /**
-     * Return a block as callback. 
-     * 
+     * Return a block as callback.
+     *
      * @param string $name
      *
      * @access public
@@ -211,7 +211,7 @@ class View implements ViewInterface
 
     /**
      * Checks if a blck with the given name exists.
-     * 
+     *
      * @param string $name
      *
      * @access public
@@ -223,8 +223,8 @@ class View implements ViewInterface
     }
 
     /**
-     * extend 
-     * 
+     * extend
+     *
      * @param string $template
      *
      * @access public
@@ -232,7 +232,7 @@ class View implements ViewInterface
      */
     public function extend($template)
     {
-       $this->extended = $template; 
+       $this->extended = $template;
     }
 
     /**
@@ -243,16 +243,16 @@ class View implements ViewInterface
         $this->extended = null;
 
         $content = $this->render_content($template, $variables);
-         
+
         if ($this->extended) {
-            $extended = $this->extended;//$this->getPath() . $this->extended . $this->getExtension(); 
-            // if not empty content then should throw exception cause child 
+            $extended = $this->extended;//$this->getPath() . $this->extended . $this->getExtension();
+            // if not empty content then should throw exception cause child
             // templates should not render any content immediately.
             $content = trim($content);
             if (!empty($content)) {
                 throw new \Exception(sprintf("Template '%s' extends another template so should not render any content.",realpath($template)));
             }
-            
+
             return $this->render($extended, $variables);
 
         } else {
@@ -283,7 +283,7 @@ class View implements ViewInterface
             }
             throw $e;
         }
-        
-        return ob_get_clean();       
+
+        return ob_get_clean();
     }
 }

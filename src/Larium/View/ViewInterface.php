@@ -8,7 +8,7 @@ interface ViewInterface
 {
     /**
      * Sets the absolute path of templates location.
-     * 
+     *
      * @param string $path
      *
      * @access public
@@ -18,7 +18,7 @@ interface ViewInterface
 
     /**
      * Gets the absolute path of templates location.
-     * 
+     *
      * @access public
      * @return string
      */
@@ -26,7 +26,7 @@ interface ViewInterface
 
     /**
      * Assign a variable so it can be used inside the template file.
-     * 
+     *
      * @param string $variable
      * @param mixed $value
      *
@@ -36,8 +36,8 @@ interface ViewInterface
     public function assign($variable, $value);
 
     /**
-     * Gets an assigned varible. Returns null if variable not exists. 
-     * 
+     * Gets an assigned variable. Returns null if variable not exists.
+     *
      * @param string $variable
      *
      * @access public
@@ -50,10 +50,10 @@ interface ViewInterface
      *
      * Given variables will be merged with the variables assigned with
      * @see assign() method.
-     * 
-     * @param string $template  The filename only, without extension, of template 
+     *
+     * @param string $template  The filename only, without extension, of template
      *                          file. Not absolute path required.
-     * @param array  $variables An array with key/values variable to assign to 
+     * @param array  $variables An array with key/values variable to assign to
      *                          template file.
      *
      * @access public
@@ -62,8 +62,8 @@ interface ViewInterface
     public function render($template, $variables = array());
 
     /**
-     * Gets all assigned variables. 
-     * 
+     * Gets all assigned variables.
+     *
      * @access public
      * @return array
      */
@@ -71,7 +71,7 @@ interface ViewInterface
 
     /**
      * Gets the template file extension associated with this View instance.
-     * 
+     *
      * @access public
      * @return void
      */
@@ -79,7 +79,7 @@ interface ViewInterface
 
     /**
      * Clears all assigned variables.
-     * 
+     *
      * @access public
      * @return void
      */
@@ -100,7 +100,7 @@ interface ViewInterface
     /**
      * Gets the absolute path of the template file to render.
      *
-     * @return string 
+     * @return string
      */
     public function getTemplate();
 }
