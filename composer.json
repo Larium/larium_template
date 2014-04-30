@@ -1,0 +1,22 @@
+{
+    "name": "larium/template",
+    "description": "",
+    "keywords": ["template"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andreas Kollaros",
+            "email": "andreaskollaros@ymail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "Larium\\": "src/"
+        }
+    }
+}
