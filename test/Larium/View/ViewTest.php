@@ -8,12 +8,12 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $path;
-    
+
     public function setUp()
     {
         $this->path = __DIR__ . '/../../views';
     }
-    
+
     public function testVariableAssign()
     {
         $view = new View($this->path);
@@ -29,16 +29,16 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     {
         $view = new View($this->path);
         $view->assign('header', 'Hello World');
-        
+
         $view->render('block');
 
         $callback = $view->getBlock('header');
-        
+
         $this->expectOutputString('<div class="header">Hello World</div>'.PHP_EOL);
 
         $callback->__invoke($view);
     }
-    
+
     public function testTemplateExtend()
     {
         $view = new View($this->path);
@@ -50,14 +50,14 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     <head>
 
     </head>
-    
+
     <body>
         <div class="header">Hello World</div>
     </body>
 </html>
 EOT;
         $this->expectOutputString($output.PHP_EOL);
-        
+
         echo $view->render('extended_block');
     }
 
@@ -72,7 +72,7 @@ EOT;
     <head>
         <title>New Title</title>
     </head>
-    
+
     <body>
         <div class="header_2">Hello World</div>
         <div class="content">
@@ -82,7 +82,7 @@ EOT;
 </html>
 EOT;
         $this->expectOutputString($output.PHP_EOL);
-        
+
         echo $view->render('multi_extend');
     }
 
@@ -95,11 +95,24 @@ EOT;
         $output = $view->render('raw');
 
         $this->assertEquals('<h1><span>Hello World</span></h1>'.PHP_EOL, $output);
-        
+
         $output = $view->render('escape');
-        
+
         $this->assertNotEquals('<h1><span>Hello World</span></h1>'.PHP_EOL, $output);
-        
+
         $this->assertEquals('<h1>&lt;span&gt;Hello World&lt;/span&gt;</h1>'.PHP_EOL, $output);
+    }
+
+    public function testPassArgsToBlock()
+    {
+        $view = new View($this->path);
+        $view->assign('foo', 'Bar');
+        $view->assign('bar', 'Foo');
+
+        $view->render('block_args');
+
+        $view->getBlock('header');
+
+        //$this->expectOutputString('<div class="header">Hello World</div>'.PHP_EOL);
     }
 }

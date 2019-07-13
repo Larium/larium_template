@@ -238,7 +238,7 @@ class View implements ViewInterface
     /**
      * {@inheritdoc}
      */
-    public function render($template=null, $variables=array())
+    public function render($template = null, $variables = array())
     {
         $this->extended = null;
 
@@ -261,11 +261,11 @@ class View implements ViewInterface
         }
     }
 
-    private function render_content($template, array $variables=array())
+    private function render_content($template, array $variables = array())
     {
         $template ? $this->setTemplate($template) : null;
 
-        foreach ($variables as $variable=>$value) {
+        foreach ($variables as $variable => $value) {
             $this->assign($variable, $value);
         }
 
